@@ -32,7 +32,7 @@ class UserFactory extends Factory
             'role_id' => Role::inRandomOrder()->first(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
-            'role_id' => $this->faker->randomElement([1, 2, 3]),
+            
         ];
     }
 

@@ -13,9 +13,7 @@ return new class extends Migration
     {
         Schema::create('employes', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained('users')->primary();
-            $table->foreignId('departement_id')->constrained();
-            $table->integer('token');
-           
+            $table->integer('token');           
             $table->timestamps();
         });
     }

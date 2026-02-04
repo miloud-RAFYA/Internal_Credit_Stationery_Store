@@ -12,9 +12,9 @@ class Produit extends Model
     protected $fillable = [
         'nom',
         'prix_tokens',
-        'qte',
+        'stock',
         'description',
-        'image',
+        'image_produit',
         'est_premuim'
     ];
      public function ligneCommande()

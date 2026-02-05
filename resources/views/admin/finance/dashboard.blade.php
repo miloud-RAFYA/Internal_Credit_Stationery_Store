@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="flex justify-between items-end mb-10">
         <div>

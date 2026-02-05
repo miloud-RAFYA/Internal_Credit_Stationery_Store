@@ -7,7 +7,7 @@
             <h1 class="text-4xl font-bold text-slate-900">Boutique</h1>
             <p class="text-slate-500 mt-2">Découvrez nos fournitures de bureau</p>
         </div>
-        <a href="{{ route('shop.cart') }}" class="px-6 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700">
+        <a href="#" class="px-6 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700">
             🛒 Mon panier
         </a>
     </div>

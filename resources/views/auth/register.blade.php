@@ -22,7 +22,7 @@
 
         <div>
             <label class="block text-sm font-semibold text-slate-700 mb-2">Nom complet</label>
-            <input type="text" name="name" value="{{ old('name') }}" required autofocus
+            <input type="text" name="nom" value="{{ old('nom') }}" required autofocus
                    class="w-full px-4 py-3 rounded-lg border border-slate-200 bg-white focus:ring-2 focus:ring-indigo-500"/>
         </div>
 

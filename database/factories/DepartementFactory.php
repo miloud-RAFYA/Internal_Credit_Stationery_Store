@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\departemet>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Departement>
  */
-class DepartemetFactory extends Factory
+class DepartementFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,18 @@ class DepartemetFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+                'nom' => $this->faker->randomElement([
+                'IT',
+                'HR',
+                'Marketing',
+                'Finance',
+                'Sales',
+                'Support',
+                'Logistics',
+                'Production',
+                'Quality',
+                'Management',
+            ])
         ];
     }
 }

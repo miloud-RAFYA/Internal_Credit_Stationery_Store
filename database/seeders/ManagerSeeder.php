@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Manager;
 
 class ManagerSeeder extends Seeder
 {
@@ -12,6 +13,6 @@ class ManagerSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Manager::factory(20)->create();
     }
 }

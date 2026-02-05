@@ -10,7 +10,7 @@ use App\Models\Commande;
 
 class HomeController extends Controller
 {
-    public function adminDashboard()
+    public function dashboard()
     {
         $stats = [
             'total_products' => Produit::count(),

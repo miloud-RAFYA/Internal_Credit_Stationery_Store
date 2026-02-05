@@ -6,7 +6,9 @@
         <h1 class="text-4xl font-extrabold tracking-tight">Catalogue Articles</h1>
         <p class="text-slate-500">Gérez les fournitures et les niveaux de stock</p>
     </div>
-    <button onclick="toggleModal('modal-add-product')" class="px-6 py-3 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition-all flex items-center gap-2">
+    <form action="c" method="POST"></form>
+    <a 
+    <button  class="px-6 py-3 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition-all flex items-center gap-2">
         <span>+</span> Ajouter un article
     </button>
 </div>
@@ -23,7 +25,7 @@
             <thead class="bg-slate-50 text-slate-400 uppercase text-[10px] font-black tracking-widest">
                 <tr>
                     <th class="px-8 py-5 text-left">Article</th>
-                    <th class="px-8 py-5 text-center">Catégorie</th>
+                    <th class="px-8 py-5 text-center">Description</th>
                     <th class="px-8 py-5 text-center">Statut</th>
                     <th class="px-8 py-5 text-center">Stock</th>
                     <th class="px-8 py-5 text-right">Prix</th>
@@ -31,21 +33,25 @@
                 </tr>
             </thead>
             <tbody class="divide-y divide-slate-100">
-                @foreach($products as $product)
+                @foreach($produits as $product)
                 <tr class="hover:bg-indigo-50/30 transition-colors group">
                     <td class="px-8 py-5">
                         <div class="flex items-center gap-3">
                             <div class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-xl shadow-inner">
-                                {{ $product->emoji ?? '📦' }}
+                                @if($product->image_produit)
+                                     <img src="{{ asset('storage/' . $product->image_produit) }}" alt="Product Image">
+                                @else
+                                     <div class="placeholder">📦</div>
+                                @endif
                             </div>
-                            <span class="font-bold text-slate-700 text-base">{{ $product->name }}</span>
+                            <span class="font-bold text-slate-700 text-base">{{ $product->nom }}</span>
                         </div>
                     </td>
                     <td class="px-8 py-5 text-center text-slate-500 font-medium">
-                        {{ $product->category->name ?? 'Général' }}
+                        {{ $product->description ?? 'Général' }}
                     </td>
                     <td class="px-8 py-5 text-center">
-                        @if($product->is_premium)
+                        @if($product->est_premuim)
                             <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-lg text-[10px] font-black uppercase ring-1 ring-purple-200">Premium</span>
                         @else
                             <span class="bg-slate-100 text-slate-500 px-3 py-1 rounded-lg text-[10px] font-black uppercase">Standard</span>
@@ -58,7 +64,7 @@
                         </div>
                     </td>
                     <td class="px-8 py-5 text-right">
-                        <span class="font-black text-indigo-600 text-lg">{{ $product->price_tokens }} <span class="text-xs">TK</span></span>
+                        <span class="font-black text-indigo-600 text-lg">{{ $product->prix_tokens }} <span class="text-xs">TK</span></span>
                     </td>
                     <td class="px-8 py-5 text-center">
                         <div class="flex justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">

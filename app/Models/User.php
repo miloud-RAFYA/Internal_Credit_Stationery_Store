@@ -22,7 +22,11 @@ class User extends Authenticatable
         'nom',
         'email',
         'password',
+<<<<<<< HEAD
         'role_id'
+=======
+        'role_id',
+>>>>>>> 85f33ff8ff9a0d8dd049fac2413b2feeb44ce5ab
     ];
     public function employe()
     {

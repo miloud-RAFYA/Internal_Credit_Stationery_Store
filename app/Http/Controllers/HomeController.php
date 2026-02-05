@@ -10,7 +10,7 @@ use App\Models\Commande;
 
 class HomeController extends Controller
 {
-    public function adminDashboard()
+    public function dashboard()
     {
         $stats = [
             'total_products' => Produit::count(),
@@ -19,12 +19,9 @@ class HomeController extends Controller
             'low_stock_count' => Produit::where('stock', '<', 5)->count(),
         ];
 
-        $orders = Commande::with('user')
-            ->latest()
-            ->take(5)
-            ->get();
-
-        return view('admin/dashboard', compact('stats', 'orders'));
+        $commandes = Commande::all();
+            
+        return view('admin.dashboard', compact('stats', 'commandes'));
     }
 
     public function showProduitsInAdminDashboard()

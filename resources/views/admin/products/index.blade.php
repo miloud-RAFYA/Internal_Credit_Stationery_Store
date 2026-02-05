@@ -6,6 +6,8 @@
         <h1 class="text-4xl font-extrabold tracking-tight">Catalogue Articles</h1>
         <p class="text-slate-500">Gérez les fournitures et les niveaux de stock</p>
     </div>
+    <form action="c" method="POST"></form>
+    <a 
     <button  class="px-6 py-3 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition-all flex items-center gap-2">
         <span>+</span> Ajouter un article
     </button>

@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\ProduitController;
@@ -11,9 +10,9 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
-Route::get('/dashboard', function () {
-    return view('admin.finance.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('dashboard', [HomeController::class, 'dashboard'])
+    ->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -24,4 +23,13 @@ Route::middleware('auth')->group(function () {
     
 });
 
-require __DIR__.'/auth.php';
+
+
+
+
+// Route::get('/admin/dashboard', function(){
+//     return view('/admin/dashboard');
+// });
+
+
+require __DIR__ . '/auth.php';

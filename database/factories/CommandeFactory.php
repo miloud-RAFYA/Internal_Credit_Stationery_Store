@@ -3,10 +3,11 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use App\Models\User;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Commande>
  */
+
 class CommandeFactory extends Factory
 {
     /**
@@ -14,10 +15,13 @@ class CommandeFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition()
     {
-        return [
-            //
-        ];
+        // return [
+        //     'user_id' => User::inRandomOrder()->first(),
+        //     'montant_tokens' => $this->faker->numberBetween(10,400),
+        //     'status' => $this->faker->randomElement(['en_attente','approuve','rejetee','recue']),
+        // ];
     }
 }
+

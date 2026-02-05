@@ -22,7 +22,7 @@ class ProduitFactory extends Factory
             'stock'=>fake()->numberBetween(0,1000),        
             'description'=>fake()->text(),  
             'image_produit'=>fake()->imageUrl(),  
-            'est_premuim'=>fake()->boolean(),  
+            'est_premuim'=>fake()->boolean(20),  
             ];
     }
 }

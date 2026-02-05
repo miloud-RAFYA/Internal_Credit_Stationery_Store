@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('stock');
             $table->text('description');
             $table->string('image_produit')->nullable();
-            $table->boolean('est_premium')->default(false);
+            $table->boolean('est_premuim')->default(false);
             $table->timestamps();
         });
     }

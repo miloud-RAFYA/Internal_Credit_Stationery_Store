@@ -1,8 +1,10 @@
 <?php
 
 namespace Database\Seeders;
+
 use App\Models\departement;
 use App\Models\Manager;;
+
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -20,11 +22,13 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
+
         $this->call(RoleSeeder::class);
         User::factory(50)->create();
         $this->call(DepartementSeeder::class);
         $this->call(ManagerSeeder::class);
         $this->call(EmployeSeeder::class);
         // $this->call(CommandeSeeder::class);
+        $this->call(ProduitSeeder::class);
     }
 }

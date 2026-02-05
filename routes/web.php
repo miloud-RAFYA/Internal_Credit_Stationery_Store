@@ -1,12 +1,26 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ManagerController;
+
+
 Route::get('/', function () {
-    return view('/admin/products/index');
+    return view('auth/login');
 });
-Route::get('/admin/dashboard', [HomeController::class, 'adminDashboard'])->name('admin.dashboard');
 
-Route::get('/admin/produits', [HomeController::class, 'showProduitsInAdminDashboard'])->name('admin.dashboard');
+Route::get('/dashboard', function () {
+    return view('admin.dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/admin/utilisateurs', [HomeController::class, 'showUtilisateurInAdminDashboard']);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('/manager',ManagerController::class);
+
+});
+
+require __DIR__.'/auth.php';

@@ -135,23 +135,23 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y">
-                    @foreach($orders as $order)
+                    @foreach($commandes as $commande)
                         <tr class="hover:bg-indigo-50/40 transition">
-                            <td class="px-8 py-5 font-bold">#CMD-{{ $order->id }}</td>
-                            <td class="px-8 py-5 font-semibold">{{ $order->user->name }}</td>
+                            <td class="px-8 py-5 font-bold">CMD-{{ $commande->id }}</td>
+                            <td class="px-8 py-5 font-semibold">{{ $commande->user->nom }}</td>
                             <td class="px-8 py-5 text-center text-slate-500">
-                                {{ $order->created_at->format('d M Y') }}
+                                {{ $commande->created_at->format('d M Y') }}
                             </td>
                             <td class="px-8 py-5 text-right font-extrabold text-indigo-600">
-                                {{ $order->montant_tokens }} TK
+                                {{ $commande->montant_tokens }} TK
                             </td>
                             <td class="px-8 py-5 text-center">
                                 <span class="px-4 py-1 rounded-full text-xs font-bold
-                                        @if($order->status == 'approuve') bg-emerald-100 text-emerald-600
-                                        @elseif($order->status == 'rejetee') bg-rose-100 text-rose-600
-                                        @elseif($order->status == 'recue') bg-blue-100 text-blue-600
+                                        @if($commande->status == 'approuve') bg-emerald-100 text-emerald-600
+                                        @elseif($commande->status == 'rejetee') bg-rose-100 text-rose-600
+                                        @elseif($commande->status == 'recue') bg-blue-100 text-blue-600
                                         @else bg-amber-100 text-amber-600 @endif">
-                                    {{ strtoupper(str_replace('_', ' ', $order->status)) }}
+                                    {{ strtoupper(str_replace('_', ' ', $commande->status)) }}
                                 </span>
                             </td>
                         </tr>

@@ -1,12 +1,10 @@
 <?php
 
 namespace Database\Seeders;
-
 use App\Models\Commande;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\LigneCommande;
-
 
 class CommandeSeeder extends Seeder
 {

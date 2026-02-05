@@ -7,7 +7,6 @@ use App\Models\User;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Commande>
  */
-
 class CommandeFactory extends Factory
 {
     /**

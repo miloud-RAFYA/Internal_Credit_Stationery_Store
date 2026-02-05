@@ -23,6 +23,7 @@ class LigneCommandeFactory extends Factory
             'produit_id' => $produit->id,
             'qte' => $quantite,
             'prix_unitaire' => $produit->prix_tokens,
+            
         ];
     }
 }

@@ -19,12 +19,12 @@ class HomeController extends Controller
             'low_stock_count' => Produit::where('stock', '<', 5)->count(),
         ];
 
-        $orders = Commande::with('user')
+        $commandes = Commande::with('user')
             ->latest()
             ->take(5)
             ->get();
 
-        return view('admin/dashboard', compact('stats', 'orders'));
+        return view('admin.dashboard', compact('stats', 'orders'));
     }
 
     public function showProduitsInAdminDashboard()

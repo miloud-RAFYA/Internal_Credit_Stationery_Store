@@ -20,7 +20,6 @@ Route::middleware('auth')->group(function () {
     Route::get('admin/finance/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('admin/utilisateurs', [UserController::class, 'index'])->name('admin.utilisateurs.index');
     Route::get('admin.utilisateurs.create', [UserController::class, 'create'])->name('admin.utilisateurs.create');
-
 });
 
 

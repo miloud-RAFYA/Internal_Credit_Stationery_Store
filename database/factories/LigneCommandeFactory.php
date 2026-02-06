@@ -17,13 +17,11 @@ class LigneCommandeFactory extends Factory
     public function definition(): array
     {
         $produit = Produit::inRandomOrder()->first();
-        $quantite = fake()->numberBetween(1, 5);
 
         return [
-            'produit_id' => $produit->id,
-            'qte' => $quantite,
-            'prix_unitaire' => $produit->prix_tokens,
-            
+           'produit_id' => $produit->id,
+           'prix_unitaire' => $produit->prix_tokens,
+           'qte'=> fake()->numberBetween(1,5),
         ];
     }
 }

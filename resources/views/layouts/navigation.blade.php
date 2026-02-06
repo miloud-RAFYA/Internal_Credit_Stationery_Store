@@ -15,7 +15,7 @@
             <!-- Menu -->
             <div class="hidden md:flex gap-6 text-sm">
                 <a class="text-blue-600 font-medium hover:text-gray-900" href="dashboard">Dashboard</a>
-                <a class="text-blue-600 font-medium hover:text-gray-900 " href="produits">Produits</a>
+                <a class="text-blue-600 font-medium hover:text-gray-900 " href="{{route('products.index')}}">Produits</a>
                 <a class="text-blue-600 font-medium hover:text-gray-900" href="utilisateurs">Utilisateurs</a>
                 <a class="text-blue-600 font-medium hover:text-gray-900">Finance</a>
             </div>

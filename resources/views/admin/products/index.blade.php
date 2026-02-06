@@ -7,10 +7,10 @@
         <p class="text-slate-500">Gérez les fournitures et les niveaux de stock</p>
     </div>
     <form action="c" method="POST"></form>
-    <a 
-    <button  class="px-6 py-3 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition-all flex items-center gap-2">
+    <a href="{{ route('products.create') }}" class="px-6 py-3 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition-all flex items-center gap-2">
         <span>+</span> Ajouter un article
-    </button>
+    </a>
+    
 </div>
 
 <div class="flex gap-3 mb-6">
@@ -38,11 +38,13 @@
                     <td class="px-8 py-5">
                         <div class="flex items-center gap-3">
                             <div class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-xl shadow-inner">
-                                @if($product->image_produit)
-                                     <img src="{{ asset('storage/' . $product->image_produit) }}" alt="Product Image">
-                                @else
-                                     <div class="placeholder">📦</div>
-                                @endif
+                              @if($product->image_produit)
+                             <img src="{{ Storage::url($product->image_produit) }}"  width="50"
+                                    alt="{{ $product->nom }}"
+                                   class="w-full h-full object-cover">
+                               @else
+                                    <span class="text-xl">📦</span>
+                               @endif
                             </div>
                             <span class="font-bold text-slate-700 text-base">{{ $product->nom }}</span>
                         </div>
@@ -68,8 +70,8 @@
                     </td>
                     <td class="px-8 py-5 text-center">
                         <div class="flex justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button class="p-2 hover:bg-white rounded-lg border border-transparent hover:border-slate-200 text-slate-400 hover:text-indigo-600">✏️</button>
-                            <button class="p-2 hover:bg-white rounded-lg border border-transparent hover:border-slate-200 text-slate-400 hover:text-red-600">🗑️</button>
+                            <a  class="p-2 hover:bg-white rounded-lg border border-transparent hover:border-slate-200 text-slate-400 hover:text-indigo-600"  href="products.edit">✏️</a>
+                            <a class="p-2 hover:bg-white rounded-lg border border-transparent hover:border-slate-200 text-slate-400 hover:text-red-600" href="products.destroy">🗑️</a>
                         </div>
                     </td>
                 </tr>

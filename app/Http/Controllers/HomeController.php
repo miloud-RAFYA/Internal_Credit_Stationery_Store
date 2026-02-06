@@ -21,7 +21,7 @@ class HomeController extends Controller
 
         $commandes = Commande::all();
             
-        return view('admin.dashboard', compact('stats', 'commandes'));
+        return view('admin/finance/dashboard', compact('stats', 'commandes'));
     }
 
     public function showProduitsInAdminDashboard()

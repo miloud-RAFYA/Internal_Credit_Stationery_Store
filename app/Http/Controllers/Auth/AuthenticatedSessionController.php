@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
+
 class AuthenticatedSessionController extends Controller
 {
     /**
@@ -32,7 +33,7 @@ class AuthenticatedSessionController extends Controller
         return redirect()->intended(route('dashboard', absolute: false));
 
         // return redirect()->intended(route('dashboard', absolute: false));
-        $role = auth()->user()->role->nom;
+        $role = Auth::user()->role->nom;
         if ( $role === 'Admin') {
             return redirect()->route('dashboard');
         }

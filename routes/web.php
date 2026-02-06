@@ -19,7 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('/manager',ManagerController::class);
-    Route::resource('admin/products',ProduitController::class);
+    Route::resource('products',ProduitController::class);
     
 });
 

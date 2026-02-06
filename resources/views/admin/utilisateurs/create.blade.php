@@ -5,7 +5,7 @@
     <h1 class="text-2xl font-bold mb-4">Ajouter un utilisateur</h1>
 
     <div class="bg-white p-6 rounded shadow">
-        <form action="{{ route('admin.utilisateurs.store') }}" method="POST">
+        <form action="" method="POST">
             @csrf
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -22,9 +22,9 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <div>
                     <label class="block text-sm font-medium text-slate-700">Département</label>
-                    <select name="departement_id" class="mt-1 w-full rounded border px-3 py-2">
+                    <select name="departement_id" class="h-5 overflow-y-auto mt-1 w-full rounded border px-3 py-2">
                         <option value="">-- Choisir --</option>
-                        @foreach(App\Models\Departement::all() as $dep)
+                        @foreach($departement as $dep)
                         <option value="{{ $dep->id }}">{{ $dep->nom }}</option>
                         @endforeach
                     </select>

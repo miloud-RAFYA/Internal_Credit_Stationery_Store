@@ -27,15 +27,12 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-<<<<<<< HEAD
         
         return redirect()->intended(route('dashboard', absolute: false));
-=======
 
-        // return redirect()->intended(route('dashboard', absolute: false));
         $role = auth()->user()->role->nom;
         if ( $role === 'Admin') {
-            return redirect()->route('dashboard');
+            return redirect()->route('admin.dashboard');
         }
 
         if ( $role === 'employe') {
@@ -46,7 +43,6 @@ class AuthenticatedSessionController extends Controller
             return redirect('/manager/dashboard');
         }
         return redirect('/login');
->>>>>>> 85f33ff8ff9a0d8dd049fac2413b2feeb44ce5ab
     }
 
     /**

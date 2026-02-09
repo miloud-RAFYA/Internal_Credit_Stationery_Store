@@ -68,7 +68,7 @@
                     @foreach($commandes as $commande)
                         <tr class="hover:bg-indigo-50/40 transition">
                             <td class="px-8 py-5 font-bold">CMD-{{ $commande->id }}</td>
-                            <td class="px-8 py-5 font-semibold">{{ $commande->user->nom }}</td>
+                            <td class="px-8 py-5 font-semibold">{{ $commande->user->nom ?? '-' }}</td>
                             <td class="px-8 py-5 text-center text-slate-500">
                                 {{ $commande->created_at->format('d M Y') }}
                             </td>

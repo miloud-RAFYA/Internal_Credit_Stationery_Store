@@ -5,11 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\ProduitController;
+use App\Http\Controllers\EmployeeDashboardController;
 
 Route::get('/', function () {
-    return view('auth/login');
+    return view('welcome');
 });
-
 
 Route::get('dashboard', [HomeController::class, 'dashboard'])
     ->middleware(['auth', 'verified'])->name('dashboard');
@@ -20,16 +20,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('/manager',ManagerController::class);
     Route::resource('products',ProduitController::class);
+    Route::get('/shop/dashboard', [EmployeeDashboardController::class, 'index'])
+        ->name('shop.dashboard');
     
 });
-
-
-
 
 
 // Route::get('/admin/dashboard', function(){
 //     return view('/admin/dashboard');
 // });
-
 
 require __DIR__ . '/auth.php';

@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Manager;
+use App\Models\User;
+
 
 class ManagerSeeder extends Seeder
 {
@@ -13,6 +15,11 @@ class ManagerSeeder extends Seeder
      */
     public function run(): void
     {
-        Manager::factory(20)->create();
+        $users = User::where('role_id', 3)->get();
+        foreach ($users as $user) {
+            Manager::factory()->create([
+                'user_id' => $user->id,
+            ]);
+        }
     }
 }

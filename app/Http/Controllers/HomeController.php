@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Manager;
 use App\Models\Commande;
 
+
 class HomeController extends Controller
 {
     public function dashboard()

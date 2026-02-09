@@ -8,30 +8,27 @@ use App\Models\User;
 use App\Models\Manager;
 use App\Models\Commande;
 
-class HomeController extends Controller
+class AdminController extends Controller
 {
     public function dashboard()
     {
         $stats = [
-            'total_products' => Produit::count(),
-            'total_users' => Manager::count(),
-            'total_tokens' => Manager::sum('token'),
-            'low_stock_count' => Produit::where('stock', '<', 5)->count(),
+            'totalProduits' => Produit::count(),
+            'totalUsers' => User::whereRelation('role', 'nom', '!=', 'admin')->count(),
+            'totalTokens' => Manager::sum('token'),
         ];
 
-        $commandes = Commande::all();
-            
+        $commandes = Commande::latest()->paginate(5);
         return view('admin/finance/dashboard', compact('stats', 'commandes'));
     }
 
-    public function showProduitsInAdminDashboard()
-    {
-        
-        $produits = Produit::latest()->get(); 
-        return view('admin/produits', compact('produits'));
-    }
+    // public function showProduits()
+    // {
+    //     $produits = Produit::latest()->get(); 
+    //     return view('admin/produits', compact('produits'));
+    // }
 
-    public function showUtilisateurInAdminDashboard()
+    public function showUtilisateurs()
     {
         $utilisateurs = User::with('employe')->get(); 
 
@@ -43,5 +40,8 @@ class HomeController extends Controller
         ];
 
         return view('admin.utilisateurs', compact('utilisateurs', 'stats'));
+    }
+    public function reports(){
+        view('admin.finance.reports');
     }
 }

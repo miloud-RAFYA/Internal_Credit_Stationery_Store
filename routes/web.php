@@ -7,9 +7,9 @@ use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\UserController;
 
-Route::get('/', function () {
-    return view('auth/login');
-});
+// Route::get('/', function () {
+//     return view('auth/login');
+// });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -19,7 +19,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('admin/products', ProduitController::class);
     Route::get('admin/finance/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('admin/utilisateurs', [UserController::class, 'index'])->name('admin.utilisateurs.index');
-    Route::get('admin.utilisateurs.create', [UserController::class, 'create'])->name('admin.utilisateurs.create');
+    Route::get('/admin/dashborad', [UserController::class, 'create'])->name('admin.utilisateurs.create');
+    Route::post('/admin/dashborad', [UserController::class, 'store'])->name('admin.utilisateurs.store');
 });
 
 

@@ -19,7 +19,7 @@ class AdminController extends Controller
         ];
 
         $commandes = Commande::latest()->paginate(5);
-        return view('admin.finance.dashboard', compact('stats', 'commandes'));
+        return view('admin/finance/dashboard', compact('stats', 'commandes'));
     }
 
     // public function showProduits()

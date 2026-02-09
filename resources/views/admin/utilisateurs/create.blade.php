@@ -5,24 +5,29 @@
     <h1 class="text-2xl font-bold mb-4">Ajouter un utilisateur</h1>
 
     <div class="bg-white p-6 rounded shadow">
-        <form action="" method="POST">
+        <form action="{{ route('admin.utilisateurs.store') }}" method="POST">
             @csrf
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-slate-700">Nom</label>
-                    <input type="text" name="name" value="{{ old('name') }}" class="mt-1 w-full rounded border px-3 py-2" required>
+                    <input type="text" name="nom" value="{{ old('nom') }}" class="mt-1 w-full rounded border px-3 py-2" required>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-slate-700">Email</label>
                     <input type="email" name="email" value="{{ old('email') }}" class="mt-1 w-full rounded border px-3 py-2" required>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-700">Mot de passe</label>
+                    <input type="password" name="password" value="{{ old('password') }}" class="mt-1 w-full rounded border px-3 py-2" required>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <div>
                     <label class="block text-sm font-medium text-slate-700">Département</label>
-                    <select name="departement_id" class="h-5 overflow-y-auto mt-1 w-full rounded border px-3 py-2">
+                    <select name="departement_id" value="" class=" overflow-y-auto mt-1 w-full rounded border px-3 py-2">
                         <option value="">-- Choisir --</option>
                         @foreach($departement as $dep)
                         <option value="{{ $dep->id }}">{{ $dep->nom }}</option>
@@ -37,9 +42,9 @@
 
             <div class="mt-4">
                 <label class="block text-sm font-medium text-slate-700">Rôle</label>
-                <select name="role" class="mt-1 w-full rounded border px-3 py-2">
-                    <option value="employe">Employé</option>
-                    <option value="manager">Manager</option>
+                <select name="role_id" class="mt-1 w-full rounded border px-3 py-2">
+                    <option value="2">Employé</option>
+                    <option value="3">Manager</option>
                 </select>
             </div>
 

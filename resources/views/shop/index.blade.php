@@ -23,24 +23,30 @@
 
     <!-- Grille de produits -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        @for($i = 1; $i <= 8; $i++)
+        @foreach($produits as $product)
         <div class="bg-white rounded-lg shadow border border-slate-100 hover:shadow-lg transition overflow-hidden">
             <div class="h-48 bg-slate-100 flex items-center justify-center text-4xl">
-                📦
+                  @if($product->image_produit)
+                             <img src="{{ Storage::url($product->image_produit) }}"  width="50"
+                                    alt="{{ $product->nom }}"
+                                   class="w-full h-full object-cover">
+                               @else
+                                    <span class="text-xl">📦</span>
+                               @endif
             </div>
             <div class="p-4">
-                <h3 class="font-bold text-slate-900">Produit {{ $i }}</h3>
-                <p class="text-sm text-slate-500 mt-1">Description courte du produit</p>
+                <h3 class="font-bold text-slate-900">Produit {{ $product->nom }}</h3>
+                <p class="text-sm text-slate-500 mt-1">Description courte du produit {{$product->description}}</p>
                 
                 <div class="flex items-center justify-between mt-4">
-                    <p class="text-xl font-bold text-indigo-600">{{ 100 + $i * 50 }} TK</p>
+                    <p class="text-xl font-bold text-indigo-600">{{ $product->prix_tokens }} TK</p>
                     <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm hover:bg-indigo-700">
                         Ajouter
                     </button>
                 </div>
             </div>
         </div>
-        @endfor
+        @endforeach
     </div>
 </div>
 @endsection

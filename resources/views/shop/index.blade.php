@@ -35,7 +35,7 @@
                                @endif
             </div>
             <div class="p-4">
-                <h3 class="font-bold text-slate-900">Produit {{ $product->nom }}</h3>
+                <h3 class="font-bold text-slate-900">Produit {{ $product->nom }} </h3>
                 <p class="text-sm text-slate-500 mt-1">Description courte du produit {{$product->description}}</p>
                 
                 <div class="flex items-center justify-between mt-4">

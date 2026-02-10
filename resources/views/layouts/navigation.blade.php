@@ -20,11 +20,11 @@
                 <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('admin.utilisateurs.index')}}">Utilisateurs</a>
                 <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('admin.finance.reports')}}">Finance</a>
                 @else
-                <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('shop.cart')}}">Mon Profil</a>
+                <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('shop.dashboard')}}">Statistique</a>
                 <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('shop.index')}}">Boutique</a>
                 <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('shop.show',auth()->user()->id)}}">Mes Commandes</a>
-                    @if(auth()->user()->role=='manager')
-                    <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('manager.approvals')}}">Finance</a>
+                    @if(auth()->user()->role->nom === 'manager')
+                    <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('manager.approvals')}}">Notification</a>
                     @endif
                 @endif
             </div>

@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Storage;
 use App\Models\Employe;
+use App\Models\Produit;
 use Illuminate\Http\Request;
 
 class EmployeController extends Controller
@@ -12,7 +13,8 @@ class EmployeController extends Controller
      */
     public function index()
     {
-        //
+        $produits=Produit::latest()->paginate(5);
+        return view('shop.index',compact('produits'));
     }
 
     /**
@@ -20,7 +22,7 @@ class EmployeController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**

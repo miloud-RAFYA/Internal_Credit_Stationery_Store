@@ -70,8 +70,12 @@
                     </td>
                     <td class="px-8 py-5 text-center">
                         <div class="flex justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <a  class="p-2 hover:bg-white rounded-lg border border-transparent hover:border-slate-200 text-slate-400 hover:text-indigo-600"  href="products.edit">✏️</a>
-                            <a class="p-2 hover:bg-white rounded-lg border border-transparent hover:border-slate-200 text-slate-400 hover:text-red-600" href="products.destroy">🗑️</a>
+                            <a  class="p-2 hover:bg-white rounded-lg border border-transparent hover:border-slate-200 text-slate-400 hover:text-indigo-600"  href="{{route('products.edit',$product)}}">✏️</a>
+                           <form action="{{route('products.destroy',$product->id)}}" method="POST">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="p-2 hover:bg-white rounded-lg border border-transparent hover:border-slate-200 text-slate-400 hover:text-red-600" >🗑️</a>
+                            </form>
                         </div>
                     </td>
                 </tr>

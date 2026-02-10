@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produit;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -36,7 +37,7 @@ class ProduitController extends Controller
             'stock' => 'required',
             'description' => 'required',
             'image_produit' => 'nullable|image|max:3072',
-            'est_premuim' => 'required'
+            'est_premuim' => 'boolean'
         ]);
         $data = $request->only('nom', 'prix_tokens', 'stock', 'description', 'est_premuim');
         if ($request->hasFile('image_produit')) {
@@ -59,24 +60,36 @@ class ProduitController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Produit $produit)
+    public function edit(Produit $product)
     {
-        //
+        return view('admin.products.edit',compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Produit $produit)
+    public function update(Request $request, $id)
     {
-        //
+       
+        $produit=Produit::find($id);
+        $produit->update([
+            'nom' => $request->nom,
+            'description'=> $request->nom,
+            'stock' => $request->stock,
+            'prix_tokens'=>$request->prix_tokens,
+            'est_premuim'=>$request->est_premuim ?? false
+        ]);
+        return redirect()->route('products.index')->with('success','Product updated successfully');
+        
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Produit $produit)
+    public function destroy( $id)
     {
-        //
+        $product=Produit::find($id);
+        $product->delete();
+        return redirect()->route('products.index')->with('success','Product delete successfully');
     }
 }

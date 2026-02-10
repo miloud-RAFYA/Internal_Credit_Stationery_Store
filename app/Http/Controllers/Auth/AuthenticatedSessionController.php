@@ -1,14 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-
 
 class AuthenticatedSessionController extends Controller
 {
@@ -23,23 +22,23 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
+    
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
 
         $request->session()->regenerate();
-        
+        // return redirect()->intended(route('dashboard', absolute: false));
         // return redirect()->intended(route('dashboard', absolute: false));
 
-        // $role = auth()->user()->role->nom;
-        $role  = Auth::user()->role->nom;
+        $role = Auth::user()->role->nom;
         
         if ( $role === 'Admin') {
             return redirect()->route('admin.dashboard');
         }
 
-        if ( $role === 'employe') {
-            return redirect('/employe/dashboard');
+        if ( $role === 'Employee') {
+            return redirect()->route('shop.index');
         }
 
         if ( $role === 'manager') {

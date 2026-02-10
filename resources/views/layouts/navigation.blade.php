@@ -14,10 +14,12 @@
 
             <!-- Menu -->
             <div class="hidden md:flex gap-6 text-sm">
+                @if(auth()->user()->role=='Admin')
                 <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('admin.dashboard')}}">Dashboard</a>
                 <a class="text-blue-600 font-medium hover:text-gray-900 " href="{{route('products.index')}}">Produits</a>
                 <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('admin.utilisateurs.index')}}">Utilisateurs</a>
-                <a class="text-blue-600 font-medium hover:text-gray-900">Finance</a>
+                <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('admin.finance.reports')}}">Finance</a>
+                @endif
             </div>
 
             <!-- Profile -->

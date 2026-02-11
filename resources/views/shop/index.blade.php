@@ -31,7 +31,15 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         @foreach($produits as $product)
-            <div class="carte-produit bg-white rounded-lg shadow border border-slate-100 hover:shadow-lg transition overflow-hidden" data-id="{{ $product->id }}">
+            <div class="carte-produit bg-white rounded-lg shadow border border-slate-100 hover:shadow-lg transition overflow-hidden relative" data-id="{{ $product->id }}">
+                <!-- Badge Premium -->
+                <input type="hidden" name="premuim" class="premuim" value="{{$product->est_premium ?? 0}}">
+                @if($product->est_premuim)
+                    <div class="absolute top-2 right-2 bg-yellow-400 text-gray-900 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 z-10 shadow-lg">
+                        ⭐ Premium
+                    </div>
+                @endif
+                
                 <div class="h-48 bg-slate-100 flex items-center justify-center">
                     @if($product->image_produit)
                         <img src="{{ Storage::url($product->image_produit) }}" alt="{{ $product->nom }}" class="w-full h-full object-cover">
@@ -99,6 +107,7 @@
                 panier.push({
                     idProduit: id,
                     idUser: currentUserId,
+                    premuim: card.querySelector('.premuim').value,
                     nom: card.querySelector('.nom-produit').textContent.trim(),
                     image: card.querySelector('img')?.src || null,
                     prixTokens: prix,

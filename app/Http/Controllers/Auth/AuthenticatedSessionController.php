@@ -42,7 +42,7 @@ class AuthenticatedSessionController extends Controller
         }
 
         if ( $role === 'manager') {
-            return redirect('/manager/dashboard');
+            return redirect()->route('shop.index');
         }
         return redirect('/login');
     }

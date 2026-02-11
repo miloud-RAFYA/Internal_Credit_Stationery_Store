@@ -22,4 +22,9 @@ class Employe extends Model
     {
         return $this->belongsTo(Departement::class);
     }
+
+    public function commandes()
+    {
+        return $this->hasMany(Commande::class);
+    }
 }

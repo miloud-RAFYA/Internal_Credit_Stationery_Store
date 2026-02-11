@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Commande;
+use App\Models\LigneCommande;
+use App\Notifications\NouvelleCommandePremium;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,7 +29,6 @@ class CommandeController extends Controller
             $q->where('departement_id', $departement->id);
         });
         
-        // Default: show all statuses except pending
         if ($filter === 'approuve') {
             $query->where('status', 'approuve');
         } elseif ($filter === 'rejetee') {
@@ -80,7 +81,39 @@ class CommandeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->produits);
+        $produits = json_decode($request->produits, true);
+        $montantTotal = 0;
+        $commandePremuim = false;
+        foreach ($produits as $p) {
+            $montantTotal += $p['total_ligne'];
+            if($p['premuim'] == '1'){
+                $commandePremuim=true;
+            }
+        }
+
+        $commande = Commande::create([
+            'user_id' => Auth::user()->id,
+            'status' => 'rejetee',
+            'montant_tokens' => $montantTotal,
+        ]);
+
+        foreach ($produits as $p) {
+            LigneCommande::create([
+                'commande_id' => $commande->id,
+                'produit_id' => $p['produit_id'],
+                'qte' => $p['qte'],
+                'prix_unitaire' => $p['prix_tokens']
+            ]);
+        }
+        if($commandePremuim){
+           $manager=Auth::user()->departement->manager;
+           if($manager){
+            $manager->notify(new NouvelleCommandePremium($commande));
+           }
+        }
+
+        return redirect()->route('shop.index');
     }
 
     /**

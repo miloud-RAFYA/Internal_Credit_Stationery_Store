@@ -1,76 +1,184 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-5xl mx-auto">
-    <h1 class="text-4xl font-bold text-slate-900 mb-8">Mon panier</h1>
+    <div class="bg-gray-50 min-h-screen pb-24 font-sans">
+        <div class="max-w-7xl mx-auto px-4 py-6">
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Articles du panier -->
-        <div class="lg:col-span-2">
-            <div class="bg-white rounded-lg shadow border border-slate-100 overflow-hidden">
-                @if(false)
-                <div class="p-6 text-center text-slate-500">
-                    <p class="text-lg">Votre panier est vide</p>
+            {{-- Header --}}
+            <div class="flex justify-between items-center mb-8">
+                <h1 class="text-3xl font-bold text-gray-900">Votre Panier</h1>
+                <div id="user-tokens"
+                    class="px-6 py-3 bg-white border border-gray-200 rounded-xl font-bold text-indigo-600">
+                    Solde: <span class="token-value">1000</span> TK
                 </div>
-                @else
-                <div class="divide-y divide-slate-100">
-                    @for($i = 1; $i <= 3; $i++)
-                    <div class="p-6 flex items-center gap-4 hover:bg-slate-50">
-                        <div class="w-20 h-20 bg-slate-100 rounded-lg flex items-center justify-center text-2xl">
-                            📦
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+                {{-- Cart items --}}
+                <div class="lg:col-span-8">
+                    <div class="space-y-4" id="cart-items-container"></div>
+                </div>
+
+                {{-- Resume --}}
+                <div class="lg:col-span-4">
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 sticky top-6">
+                        <h2 class="text-xl font-bold mb-6 text-gray-900">Résumé</h2>
+
+                        <div class="flex justify-between font-bold text-gray-900 text-lg border-t pt-4">
+                            <span>Total</span>
+                            <span class="text-2xl font-black text-red-600">
+                                <span id="grand-total">0</span> TK
+                            </span>
                         </div>
-                        <div class="flex-1">
-                            <h3 class="font-bold text-slate-900">Produit {{ $i }}</h3>
-                            <p class="text-sm text-slate-500">250 TK</p>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <button class="px-2 py-1 border border-slate-200 rounded">-</button>
-                            <span class="w-8 text-center">{{ $i }}</span>
-                            <button class="px-2 py-1 border border-slate-200 rounded">+</button>
-                        </div>
-                        <p class="font-bold text-slate-900 w-20 text-right">{{ 250 * $i }} TK</p>
-                        <button class="text-red-600 hover:text-red-700 font-bold">🗑️</button>
+
+                        <form method="POST" action="{{ route('commande.store') }}" id="checkout-form">
+                            @csrf
+                            <input type="hidden" name="produits" id="produits-input">
+
+                            <button id="checkout-btn" type="submit" class="w-full flex items-center justify-center gap-3
+                                    bg-indigo-600 hover:bg-indigo-700
+                                    text-white mt-8 py-4 rounded-2xl
+                                    font-bold text-lg
+                                    shadow-md hover:shadow-xl
+                                    transition-all duration-300
+                                    disabled:opacity-40 disabled:cursor-not-allowed">
+                                <span>Confirmer la commande</span>
+                                <span class="text-xl">✔️</span>
+                            </button>
+                        </form>
+
                     </div>
-                    @endfor
-                </div>
-                @endif
-            </div>
-        </div>
-
-        <!-- Résumé panier -->
-        <div class="bg-white rounded-lg shadow border border-slate-100 p-6 h-fit sticky top-6">
-            <h2 class="text-xl font-bold text-slate-900 mb-6">Résumé</h2>
-            
-            <div class="space-y-3 pb-6 border-b border-slate-100 mb-6">
-                <div class="flex justify-between text-slate-600">
-                    <span>Sous-total</span>
-                    <span>750 TK</span>
-                </div>
-                <div class="flex justify-between text-slate-600">
-                    <span>Frais de service</span>
-                    <span>0 TK</span>
                 </div>
             </div>
-
-            <div class="flex justify-between text-lg font-bold text-slate-900 mb-6">
-                <span>Total</span>
-                <span class="text-indigo-600">750 TK</span>
-            </div>
-
-            <!-- Solde utilisateur -->
-            <div class="p-4 bg-slate-50 rounded-lg mb-6">
-                <p class="text-sm text-slate-600">Solde disponible</p>
-                <p class="text-2xl font-bold text-slate-900">2000 TK</p>
-            </div>
-
-            <button class="w-full px-6 py-3 bg-indigo-600 text-white rounded-lg font-bold hover:bg-indigo-700">
-                Confirmer la commande
-            </button>
-
-            <a href="{{ route('shop.index') }}" class="block text-center mt-3 text-indigo-600 hover:text-indigo-700 font-semibold">
-                Continuer vos achats
-            </a>
         </div>
     </div>
-</div>
+
+    <script>
+        const currentUserId = {{ auth()->id() }};
+        const initialTokens = parseInt(document.querySelector('.token-value').textContent);
+
+        function getCurrentAvailableTokens() {
+            return parseInt(document.querySelector('.token-value').textContent);
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items-container');
+            const panier = JSON.parse(localStorage.getItem('mon_panier')) || [];
+            const userPanier = panier.filter(item => item.idUser === currentUserId);
+
+            let total = 0;
+            container.innerHTML = '';
+
+            if (userPanier.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-white p-10 rounded-xl text-center">
+                        Panier vide
+                    </div>`;
+                document.getElementById('grand-total').textContent = '0';
+                updateTokenDisplay(0);
+                return;
+            }
+
+            userPanier.forEach(item => {
+                const itemTotal = item.prixTokens * item.qte;
+                total += itemTotal;
+
+                container.innerHTML += `
+                <div class="bg-white rounded-xl p-4 flex gap-4 shadow-sm border border-gray-100">
+                    <div class="w-24 h-24 bg-gray-50 rounded-lg overflow-hidden">
+                        <img src="${item.image || '#'}" class="w-full h-full object-cover">
+                    </div>
+
+                    <div class="flex-1">
+                        <div class="flex justify-between">
+                            <h3 class="font-bold text-gray-800">${item.nom}</h3>
+                            <button onclick="removeItem('${item.idProduit}')"
+                                class="text-gray-400 hover:text-red-500">✕</button>
+                        </div>
+
+                        <div class="flex items-center justify-between mt-4">
+                            <span class="text-lg font-bold text-indigo-600">${item.prixTokens} TK</span>
+
+                            <div class="flex items-center border rounded-lg">
+                                <button onclick="updateQty('${item.idProduit}', -1)" class="px-3 py-1">-</button>
+                                <span class="px-4 font-bold">${item.qte}</span>
+                                <button onclick="updateQty('${item.idProduit}', 1)"
+                                    class="px-3 py-1 text-indigo-600">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            });
+
+            document.getElementById('grand-total').textContent = total.toFixed(0);
+            updateTokenDisplay(total);
+        }
+
+        function updateTokenDisplay(spent) {
+            const remaining = initialTokens - spent;
+            document.querySelector('.token-value').textContent = remaining.toFixed(0);
+        }
+
+        window.updateQty = function (id, change) {
+            let panier = JSON.parse(localStorage.getItem('mon_panier')) || [];
+            const index = panier.findIndex(
+                item => item.idProduit === id && item.idUser === currentUserId
+            );
+
+            if (index > -1) {
+                const prixProduit = panier[index].prixTokens;
+                const available = getCurrentAvailableTokens();
+
+                if (change > 0 && prixProduit > available) {
+                    alert('Tokens insuffisants !');
+                    return;
+                }
+
+                if (panier[index].qte + change > 0) {
+                    panier[index].qte += change;
+                    localStorage.setItem('mon_panier', JSON.stringify(panier));
+                    renderCart();
+                }
+            }
+        }
+
+        window.removeItem = function (id) {
+            let panier = JSON.parse(localStorage.getItem('mon_panier')) || [];
+            panier = panier.filter(
+                item => !(item.idProduit === id && item.idUser === currentUserId)
+            );
+            localStorage.setItem('mon_panier', JSON.stringify(panier));
+            renderCart();
+        }
+
+        document.getElementById('checkout-form').addEventListener('submit', function (e) {
+
+            const panier = JSON.parse(localStorage.getItem('mon_panier')) || [];
+            const userPanier = panier.filter(item => item.idUser === currentUserId);
+
+            if (userPanier.length === 0) {
+                e.preventDefault();
+                alert('Panier vide');
+                return;
+            }
+
+            const produits = userPanier.map(item => ({
+                produit_id: item.idProduit,
+                premuim:item.premuim,
+                qte: item.qte,
+                prix_tokens: item.prixTokens,
+                total_ligne: item.prixTokens * item.qte,
+                prix_unitaire : item.prixTokens,
+            }));
+
+
+            document.getElementById('produits-input').value = JSON.stringify(produits);
+
+           
+            localStorage.removeItem('mon_panier');
+        });
+
+        document.addEventListener('DOMContentLoaded', renderCart);
+    </script>
 @endsection

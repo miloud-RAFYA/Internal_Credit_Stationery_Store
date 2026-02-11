@@ -32,9 +32,10 @@ class NouvelleCommandePremium extends Notification
     {
         return [
             'commande_id' => $this->commande->id,
-            'user_name'   => $this->commande->user->name, // Assure-toi que la relation user existe
-            'montant'     => $this->commande->montant_tokens,
-            'message'     => 'Une nouvelle commande premium attend votre validation.'
+            'employe_name' => $this->commande->user->employe->nom ?? $this->commande->user->nom,
+            'employe_id' => $this->commande->user->id,
+            'montant' => $this->commande->montant_tokens,
+            'message' => 'Une nouvelle commande premium attend votre validation.'
         ];
     }
 }

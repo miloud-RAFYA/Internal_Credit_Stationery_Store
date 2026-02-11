@@ -8,10 +8,14 @@
         </div>
 
         <!-- Notifications en attente -->
+         {{ var_dump(auth()->user()->unreadNotifications->count());}}
+                   {{ exit;}}
         @if (auth()->user()->unreadNotifications->count())
             <div class="mb-8">
                 <h2 class="text-2xl font-bold text-slate-900 mb-4">Nouvelles notifications ({{ auth()->user()->unreadNotifications->count() }})</h2>
                 <div class="space-y-3">
+                   {{ var_dump(auth()->user()->unreadNotifications);}}
+                   {{ exit;}}
                     @foreach (auth()->user()->unreadNotifications as $notification)
                         <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 hover:shadow-md transition">
                             <div class="flex items-start justify-between">
@@ -54,7 +58,7 @@
             </div>
         @endif
 
-        <!-- Filtres -->
+        {{-- <!-- Filtres -->
         <div class="flex gap-2 mb-6">
             <a href="{{ route('commandes.pendantes') }}"
                 class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">En attente</a>
@@ -62,7 +66,7 @@
                 class="px-4 py-2 border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50">Approuvés</a>
             <a href="{{ route('commandes.index') }}?filter=rejetee"
                 class="px-4 py-2 border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50">Rejetés</a>
-        </div>
+        </div> --}}
 
         <!-- Liste des commandes -->
         <div class="space-y-4">

@@ -24,10 +24,6 @@ class ManagerController extends Controller
         $commandes = Commande::whereHas('user.employe', function($query) use ($departement) {
             $query->where('departement_id', $departement->id);
         })->where('status', 'en_attente')->get();
-        var_dump(Commande::whereHas('user.employe', function($query) use ($departement) {
-            $query->where('departement_id', $departement->id);
-        }));
-        exit;
         return view('manager.approvals', [
             'commandes' => $commandes,
         ]);
@@ -38,7 +34,7 @@ class ManagerController extends Controller
      */
     public function valider(Request $request, Commande $commande)
     {
-        if (Auth::id() !== $commande->user->employe->departement->manager_id) {
+        if (Auth::id() === $commande->user->employe->departement->manager_id) {
             abort(403, "Vous n'êtes pas autorisé à valider cette commande.");
         }
 
@@ -49,7 +45,7 @@ class ManagerController extends Controller
             ->where('data.commande_id', $commande->id)
             ->markAsRead();
 
-        return back()->with('status', "La commande a été {$nouveauStatut}.");
+        return back()->with('status', "La commande a ete {$nouveauStatut}.");
     }
 
     /**

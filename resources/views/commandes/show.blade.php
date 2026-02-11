@@ -35,8 +35,7 @@
                                     <span class="px-3 py-1 bg-emerald-100 text-emerald-600 rounded-full text-sm font-medium">Approuvé</span>
                                 @elseif ($commande->status === 'rejetee')
                                     <span class="px-3 py-1 bg-rose-100 text-rose-600 rounded-full text-sm font-medium">Rejeté</span>
-                                @else
-                                    <span class="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-sm font-medium">{{ ucfirst($commande->status) }}</span>
+                                
                                 @endif
                             </div>
                         </div>
@@ -56,10 +55,10 @@
                                 <div class="flex justify-between items-start pb-3 border-b border-slate-100">
                                     <div>
                                         <p class="font-semibold text-slate-900">{{ $ligne->produit->nom ?? 'Produit' }}</p>
-                                        <p class="text-sm text-slate-600">Quantité: {{ $ligne->quantité }}</p>
+                                        <p class="text-sm text-slate-600">Quantité: {{ $ligne->qte }}</p>
                                     </div>
                                     <div class="text-right">
-                                        <p class="font-semibold text-indigo-600">{{ $ligne->quantité * ($ligne->produit->prix ?? 0) }} TK</p>
+                                        <p class="font-semibold text-indigo-600">{{ $ligne->qte * ($ligne->produit->prix_tokens ?? 0) }} TK</p>
                                     </div>
                                 </div>
                             @endforeach

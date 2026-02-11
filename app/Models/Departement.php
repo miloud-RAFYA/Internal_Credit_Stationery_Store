@@ -10,4 +10,13 @@ class Departement extends Model
     /** @use HasFactory<\Database\Factories\DepartementFactory> */
     use HasFactory;
     protected $fillable = ['nom'];
+    public function employe()
+    {
+        return $this->hasMany(Employe::class);
+    }
+
+    public function commande()
+    {
+        return $this->hasManyThrough(Commande::class, Employe::class);
+    }
 }

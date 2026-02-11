@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Employe;
 use App\Models\Produit;
+use App\Models\Departement;
 use Illuminate\Http\Request;
 
 class EmployeController extends Controller
@@ -37,13 +38,23 @@ class EmployeController extends Controller
     {
         //
     }
+    public function depensesParDepartement()
+    {
+        // On récupère chaque département avec la somme des commandes liées
+        $departements = Departement::withSum('commandes', 'montant_total')->get();
 
+        return view('manager.approvals', compact('departements'));
+    }
     /**
      * Display the specified resource.
      */
     public function show(Employe $employe)
     {
         return view('shop.show');
+    }
+    public function approvals()
+    {
+        return view('manager.approvals');
     }
 
     /**

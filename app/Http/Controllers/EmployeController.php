@@ -16,6 +16,11 @@ class EmployeController extends Controller
         $produits=Produit::latest()->paginate(5);
         return view('shop.index',compact('produits'));
     }
+    public function cart()
+    {
+        // $produits=Produit::latest()->paginate(5);
+        return view('shop.cart');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -38,7 +43,7 @@ class EmployeController extends Controller
      */
     public function show(Employe $employe)
     {
-        //
+        return view('shop.show');
     }
 
     /**

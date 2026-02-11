@@ -14,11 +14,18 @@
 
             <!-- Menu -->
             <div class="hidden md:flex gap-6 text-sm">
-                @if(auth()->user()->role=='Admin')
+                @if(auth()->user()->role->nom === 'Admin')
                 <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('admin.dashboard')}}">Dashboard</a>
                 <a class="text-blue-600 font-medium hover:text-gray-900 " href="{{route('products.index')}}">Produits</a>
                 <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('admin.utilisateurs.index')}}">Utilisateurs</a>
-                <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('admin.finance.reports')}}">Finance</a>
+                <a class="text-blue-600 font-medium hover:text-gray-900" href="">Finance</a>
+                @else
+                <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('shop.dashboard')}}">Statistique</a>
+                <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('shop.index')}}">Boutique</a>
+                <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('shop.show',auth()->user()->id)}}">Mes Commandes</a>
+                    @if(auth()->user()->role->nom === 'manager')
+                    <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('manager.approvals')}}">Notification</a>
+                    @endif
                 @endif
             </div>
 
@@ -37,6 +44,13 @@
                     <img class="w-10 h-10 rounded-full ring-2 ring-indigo-500"
                         src="https://ui-avatars.com/api/?name=Morad+Benaissa&background=6366f1&color=fff">
                 </div>
+                <form method="POST" action="{{ route('logout') }}">
+                   @csrf
+                   <button type="submit" 
+                    class="px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded-lg transition duration-150">
+                            {{ __('Déconnexion') }}
+                   </button>
+                </form>
             </div>
 
         </div>  

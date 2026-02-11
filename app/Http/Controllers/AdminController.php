@@ -42,6 +42,6 @@ class AdminController extends Controller
         return view('admin.utilisateurs', compact('utilisateurs', 'stats'));
     }
     public function reports(){
-        view('admin.finance.reports');
+        return view('admin.finance.reports');
     }
 }

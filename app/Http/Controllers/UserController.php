@@ -139,6 +139,11 @@ class UserController extends Controller
             $user->manager()->delete();
         }
         $user->delete();
-         return redirect()->route('admin.utilisateurs.index');
+        return redirect()->route('admin.utilisateurs.index');
+    }
+
+    public function MyPanier($user)
+    {
+        // return view('shop.show');
     }
 }

@@ -30,39 +30,7 @@
                         <p class="text-sm text-amber-700 mt-2">Suivi de vos commandes</p>
                     </a>
                 </div>
-
-                <!-- Admin Section -->
-                @if(auth()->user()->role_id && auth()->user()->role->name === 'admin')
-                <div class="mt-12 pt-8 border-t-2 border-slate-200">
-                    <h2 class="text-2xl font-bold text-slate-800 mb-6">🔧 Section Administrateur</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <a href="#" class="bg-indigo-600 text-white rounded-lg p-6 hover:bg-indigo-700 transition">
-                            <div class="text-3xl mb-3">📊</div>
-                            <h3 class="text-lg font-bold">Tableau de Bord Finance</h3>
-                            <p class="text-sm text-indigo-200 mt-2">Statistiques et rapports financiers</p>
-                        </a>
-
-                        <a href="#" class="bg-purple-600 text-white rounded-lg p-6 hover:bg-purple-700 transition">
-                            <div class="text-3xl mb-3">📦</div>
-                            <h3 class="text-lg font-bold">Gestion Produits</h3>
-                            <p class="text-sm text-purple-200 mt-2">Créer, modifier, supprimer des produits</p>
-                        </a>
-
-                        <a href="#" class="bg-pink-600 text-white rounded-lg p-6 hover:bg-pink-700 transition">
-                            <div class="text-3xl mb-3">👥</div>
-                            <h3 class="text-lg font-bold">Gestion Utilisateurs</h3>
-                            <p class="text-sm text-pink-200 mt-2">Gérer les utilisateurs et leurs rôles</p>
-                        </a>
-
-                        <a href="#" class="bg-cyan-600 text-white rounded-lg p-6 hover:bg-cyan-700 transition">
-                            <div class="text-3xl mb-3">📋</div>
-                            <h3 class="text-lg font-bold">Commandes</h3>
-                            <p class="text-sm text-cyan-200 mt-2">Gérer les commandes et les statuts</p>
-                        </a>
-                    </div>
-                </div>
-                @endif
-
+                
                 <!-- Manager Section -->
                 @if(auth()->user()->role_id && auth()->user()->role->name === 'manager')
                 <div class="mt-12 pt-8 border-t-2 border-slate-200">

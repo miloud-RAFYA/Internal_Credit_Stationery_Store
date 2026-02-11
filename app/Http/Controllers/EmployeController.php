@@ -18,8 +18,8 @@ class EmployeController extends Controller
     }
     public function cart()
     {
-        $produits=Produit::latest()->paginate(5);
-        return view('shop.index',compact('produits'));
+        // $produits=Produit::latest()->paginate(5);
+        return view('shop.cart');
     }
 
     /**

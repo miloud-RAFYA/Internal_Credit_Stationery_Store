@@ -18,7 +18,7 @@
                 <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('admin.dashboard')}}">Dashboard</a>
                 <a class="text-blue-600 font-medium hover:text-gray-900 " href="{{route('products.index')}}">Produits</a>
                 <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('admin.utilisateurs.index')}}">Utilisateurs</a>
-                <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('admin.finance.reports')}}">Finance</a>
+                <a class="text-blue-600 font-medium hover:text-gray-900" href="">Finance</a>
                 @else
                 <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('shop.dashboard')}}">Statistique</a>
                 <a class="text-blue-600 font-medium hover:text-gray-900" href="{{route('shop.index')}}">Boutique</a>

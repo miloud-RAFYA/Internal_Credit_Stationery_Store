@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Commande;
+use App\Models\LigneCommande;
 use Illuminate\Http\Request;
 
 class CommandeController extends Controller
@@ -28,7 +29,28 @@ class CommandeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->produits);
+        $produits = json_decode($request->produits, true);
+        $montantTotal = 0;
+
+        foreach ($produits as $p) {
+            $montantTotal += $p['total_ligne'];
+        }
+
+        $commande = Commande::create([
+            'user_id' => auth()->user()->id,
+            'status' => 'rejetee',
+            'montant_tokens' => $montantTotal,
+        ]);
+
+        foreach ($produits as $p) {
+            LigneCommande::create([
+                'commande_id' => $commande->id,
+                'produit_id' => $p['produit_id'],
+                'qte' => $p['qte'],
+                'prix_unitaire' => $p['prix_tokens']
+            ]);
+        }
     }
 
     /**

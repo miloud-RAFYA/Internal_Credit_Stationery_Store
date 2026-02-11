@@ -10,6 +10,8 @@ class LigneCommande extends Model
     /** @use HasFactory<\Database\Factories\LigneCommandeFactory> */
     use HasFactory;
     protected $fillable = [
+        'commande_id',
+        'produit_id',
         'qte',
         'prix_unitaire'
     ];

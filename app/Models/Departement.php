@@ -5,17 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class departement extends Model
+class Departement extends Model
 {
-    /** @use HasFactory<\Database\Factories\DepartemetFactory> */
+    /** @use HasFactory<\Database\Factories\DepartementFactory> */
     use HasFactory;
-    protected $fillable = [
-        'nom'
-    ];
-    public function employes(){
+    protected $fillable = ['nom'];
+    public function manager()
+    {
+        return $this->hasOne(Manager::class);
+    }
+    public function employe()
+    {
         return $this->hasMany(Employe::class);
     }
-    public function managers(){
-        return $this->hasMany(Manager::class);
+
+    public function commande()
+    {
+        return $this->hasManyThrough(Commande::class, Employe::class);
     }
 }

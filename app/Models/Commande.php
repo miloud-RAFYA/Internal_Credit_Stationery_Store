@@ -14,8 +14,17 @@ class Commande extends Model
         'status',
         'user_id'
     ];
-     public function ligneCommande()
+    public function ligneCommande()
     {
         return $this->hasMany(LigneCommande::class);
+    }
+    public function estPremium() {
+    return $this->ligneCommande()->whereHas('produits', function($query) {
+        $query->where('est_premuim', true);
+    })->exists();
+}
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

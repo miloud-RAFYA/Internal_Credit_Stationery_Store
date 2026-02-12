@@ -17,7 +17,10 @@ class Produit extends Model
         'image_produit',
         'est_premuim'
     ];
-     public function ligneCommande()
+    protected $casts = [
+        'est_premuim' => 'boolean',
+    ];
+    public function ligneCommande()
     {
         return $this->hasMany(LigneCommande::class);
     }

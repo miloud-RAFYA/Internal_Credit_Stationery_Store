@@ -173,6 +173,7 @@
 
             const produits = userPanier.map(item => ({
                 produit_id: item.idProduit,
+                premuim:item.premuim,
                 qte: item.qte,
                 prix_tokens: item.prixTokens,
                 total_ligne: item.prixTokens * item.qte,

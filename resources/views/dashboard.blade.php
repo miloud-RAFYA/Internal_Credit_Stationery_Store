@@ -5,7 +5,7 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900">
-                <h1 class="text-4xl font-bold mb-2">Bienvenue, {{ auth()->user()->name }}! 👋</h1>
+                <h1 class="text-4xl font-bold mb-2">Bienvenue, {{ auth()->user()->nom }}! 👋</h1>
                 <p class="text-gray-600 mb-8">Vous êtes connecté à votre espace personnel</p>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -32,7 +32,7 @@
                 </div>
                 
                 <!-- Manager Section -->
-                @if(auth()->user()->role_id && auth()->user()->role->name === 'manager')
+                @if(auth()->user()->role_id && auth()->user()->role->nom === 'manager')
                 <div class="mt-12 pt-8 border-t-2 border-slate-200">
                     <h2 class="text-2xl font-bold text-slate-800 mb-6">📈 Section Manager</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

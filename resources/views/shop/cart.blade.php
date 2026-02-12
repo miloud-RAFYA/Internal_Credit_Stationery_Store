@@ -9,7 +9,15 @@
                 <h1 class="text-3xl font-bold text-gray-900">Votre Panier</h1>
                 <div id="user-tokens"
                     class="px-6 py-3 bg-white border border-gray-200 rounded-xl font-bold text-indigo-600">
-                    Solde: <span class="token-value">1000</span> TK
+                    Solde: <span class="token-value">
+                        @if(auth()->user()->role->nom === 'Employee')
+                            {{ auth()->user()->employe->token }}
+                        @endif
+
+                        @if(auth()->user()->role->nom === 'manager')
+                            {{ auth()->user()->manager->token }}
+                        @endif
+                    </span> TK
                 </div>
             </div>
 
@@ -174,8 +182,7 @@
 
             document.getElementById('produits-input').value = JSON.stringify(produits);
 
-            // اختياري: تفريغ السلة
-            // localStorage.removeItem('mon_panier');
+            localStorage.removeItem('mon_panier');
         });
 
         document.addEventListener('DOMContentLoaded', renderCart);

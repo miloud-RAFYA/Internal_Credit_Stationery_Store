@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Commande;
 use App\Models\LigneCommande;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
 class CommandeController extends Controller
@@ -51,6 +52,30 @@ class CommandeController extends Controller
                 'prix_unitaire' => $p['prix_tokens']
             ]);
         }
+
+        auth()->user()->update([
+
+        ]);
+        
+        $role = Role::find(auth()->user()->role_id);
+        if ($role->nom === "Employee") {
+            auth()->user()->employe()->update([
+                'token' => auth()->user()->employe->token - $montantTotal ,
+            ]);
+
+            dd("Employee");
+        }
+
+        if ($role->nom === "manager") {
+            auth()->user()->manager()->update([
+
+                'token' => auth()->user()->manger->token - $montantTotal,
+            ]);
+
+            dd("manger");
+        }
+
+        // return redirect()->route('shop.index');
     }
 
     /**

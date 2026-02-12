@@ -9,13 +9,23 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <div id="user-tokens" data-initial="1000" class="px-6 py-3 bg-indigo-100 text-indigo-700 rounded-lg font-bold">
-                <span class="token-value">1000</span> TK
+            @php
+                $userToken = auth()->user()->role->nom === 'Employee' 
+                    ? auth()->user()->employe->token 
+                    : auth()->user()->manager->token;
+            @endphp
+
+            <div id="user-tokens"
+                 class="px-6 py-3 bg-indigo-100 text-indigo-700 rounded-lg font-bold"
+                 data-initial="{{ $userToken }}">
+                <span class="token-value">{{ $userToken }}</span> TK
             </div>
 
-            <a href="{{ route('shop.cart') }}" class="relative px-6 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700">
+            <a href="{{ route('shop.cart') }}"
+               class="relative px-6 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700">
                 🛒 Mon panier
-                <span id="cart-badge" class="hidden absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full border-2 border-white">
+                <span id="cart-badge"
+                      class="hidden absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full border-2 border-white">
                     0
                 </span>
             </a>
@@ -31,10 +41,12 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         @foreach($produits as $product)
-            <div class="carte-produit bg-white rounded-lg shadow border border-slate-100 hover:shadow-lg transition overflow-hidden" data-id="{{ $product->id }}">
+            <div class="carte-produit bg-white rounded-lg shadow border border-slate-100 hover:shadow-lg transition overflow-hidden"
+                 data-id="{{ $product->id }}">
                 <div class="h-48 bg-slate-100 flex items-center justify-center">
                     @if($product->image_produit)
-                        <img src="{{ Storage::url($product->image_produit) }}" alt="{{ $product->nom }}" class="w-full h-full object-cover">
+                        <img src="{{ Storage::url($product->image_produit) }}" alt="{{ $product->nom }}"
+                             class="w-full h-full object-cover">
                     @else
                         <span class="text-4xl">📦</span>
                     @endif
@@ -61,10 +73,9 @@
     function updateUI() {
         const panier = JSON.parse(localStorage.getItem('mon_panier')) || [];
         const userPanier = panier.filter(item => item.idUser === currentUserId);
-        
+
         const badge = document.getElementById('cart-badge');
         const totalQty = userPanier.reduce((acc, item) => acc + item.qte, 0);
-        
         if (totalQty > 0) {
             badge.textContent = totalQty;
             badge.classList.remove('hidden');
@@ -79,7 +90,7 @@
     }
 
     document.querySelectorAll('.add-produit').forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
             const card = btn.closest('.carte-produit');
             const id = card.dataset.id;
             const prix = parseFloat(card.querySelector('.prix-tokens').textContent);

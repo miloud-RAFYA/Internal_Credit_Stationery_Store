@@ -32,19 +32,18 @@ class AdminController extends Controller
     //     return view('admin/produits', compact('produits'));
     // }
 
-    public function showUtilisateurs()
-    {
-        $utilisateurs = User::with('employe')->get(); 
+    // public function showUtilisateurs()
+    // {
+    //     $utilisateurs = User::with('employe')->get(); 
 
-        $stats = [
-            'total_users' => $utilisateurs->count(),
-            'total_tokens' => $utilisateurs->sum(function($user) {
-                return $user->employe->token ?? 0;
-            }),
-        ];
+    //     $stats = [
+    //         'total_users' => $utilisateurs->count(),
+    //         'total_tokens' => $utilisateurs->sum(function($user) {
+    //             return $user->employe->token ?? 0;
+    //         }),
+    //     ];
 
-        return view('admin.utilisateurs', compact('utilisateurs', 'stats'));
-    }
+
     public function reports(Request $request)
     {
         $departements = Departement::orderBy('nom')->get();
@@ -115,5 +114,6 @@ class AdminController extends Controller
             'totalPremium',
             // 'pendingApprovals'
         ));
+
     }
 }

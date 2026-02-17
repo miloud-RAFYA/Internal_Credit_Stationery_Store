@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\departemet;
+use App\Models\departement;
 use Illuminate\Http\Request;
 
 class DepartemetController extends Controller
@@ -34,7 +33,7 @@ class DepartemetController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(departemet $departemet)
+    public function show(departement $departemet)
     {
         //
     }
@@ -42,7 +41,7 @@ class DepartemetController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(departemet $departemet)
+    public function edit(departement $departemet)
     {
         //
     }
@@ -50,7 +49,7 @@ class DepartemetController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, departemet $departemet)
+    public function update(Request $request, departement $departemet)
     {
         //
     }
@@ -58,7 +57,7 @@ class DepartemetController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(departemet $departemet)
+    public function destroy(departement $departemet)
     {
         //
     }

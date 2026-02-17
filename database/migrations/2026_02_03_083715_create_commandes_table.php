@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('commandes', function (Blueprint $table) {
             $table->id();
-            $table->integer('montant_tokens');
+            $table->unsignedBigInteger('montant_tokens');
+            $table->foreignId('user_id')->constrained();
             $table->enum('status',['en_attente','approuve','rejetee','recue'])->default('en_attente');
             $table->timestamps();
         });

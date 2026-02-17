@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Produit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProduitController extends Controller
 {
@@ -12,7 +13,8 @@ class ProduitController extends Controller
      */
     public function index()
     {
-        
+        $produits = Produit::latest()->paginate(5);
+        return view('admin.products.index', compact('produits'));
     }
 
     /**
@@ -20,7 +22,7 @@ class ProduitController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.products.create');
     }
 
     /**
@@ -28,7 +30,22 @@ class ProduitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nom' => 'required',
+            'prix_tokens' => 'required',
+            'stock' => 'required',
+            'description' => 'required',
+            'image_produit' => 'nullable|image|max:3072',
+            'est_premuim' => 'required'
+        ]);
+        $data = $request->only('nom', 'prix_tokens', 'stock', 'description', 'est_premuim');
+        if ($request->hasFile('image_produit')) {
+            $path = $request->file('image_produit')->store('products', 'public');
+            $data['image_produit'] = $path;
+        }
+        Produit::create($data);
+        return redirect()->route('products.index')
+            ->with('success', 'Produit créé avec succès.');
     }
 
     /**
